@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Story() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-ivory text-clay p-8">
