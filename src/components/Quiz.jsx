@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 const questions = [
   {
@@ -18,27 +18,32 @@ const questions = [
       "Just not losing money"
     ]
   }
-]
+];
 
 export default function Quiz() {
-  const [step, setStep] = useState(0)
-  const [answers, setAnswers] = useState([])
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState([]);
 
   const handleAnswer = (answer) => {
-    setAnswers(prev => [...prev, answer])
-    setStep(prev => prev + 1)
-  }
+    setAnswers((prev) => [...prev, answer]);
+    setStep((prev) => prev + 1);
+  };
 
   if (step >= questions.length) {
     return (
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">Your Clara Compass is Ready</h1>
-        <p>Thank you! Based on your answers, we’ll guide you toward your personalized financial path.</p>
+        <p className="mb-2">Thanks for completing the quiz! Here’s a summary of your answers:</p>
+        <ul className="list-disc pl-5 space-y-1">
+          {answers.map((a, i) => (
+            <li key={i}>{questions[i].question}: <strong>{a}</strong></li>
+          ))}
+        </ul>
       </div>
-    )
+    );
   }
 
-  const current = questions[step]
+  const current = questions[step];
 
   return (
     <div className="p-6">
@@ -55,5 +60,5 @@ export default function Quiz() {
         ))}
       </div>
     </div>
-  )
+  );
 }
