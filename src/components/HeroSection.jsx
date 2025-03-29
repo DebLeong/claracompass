@@ -1,49 +1,89 @@
-import { motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
+
+const questions = [
+  {
+    question: "What is your current investing style?",
+    options: ["Beginner", "Growth", "Value", "Momentum", "Index-only"]
+  },
+  {
+    question: "How much time do you want to spend thinking about investing?",
+    options: ["None", "Some", "As little as possible", "A lot"]
+  },
+  {
+    question: "What would make you feel successful financially?",
+    options: [
+      "Financial freedom",
+      "Outperforming the market",
+      "Owning meaningful companies",
+      "Just not losing money"
+    ]
+  }
+];
 
 export default function HeroSection() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Thank you for joining the waitlist!");
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState([]);
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleAnswer = (answer) => {
+    setAnswers(prev => [...prev, answer]);
+    setStep(prev => prev + 1);
   };
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.2 }}
-      className="min-h-screen flex flex-col justify-center items-center bg-ivory text-clay text-center p-6"
-    >
-      <h1 className="text-5xl font-serif font-semibold mb-4">Clara Compass</h1>
-      <p className="text-lg max-w-xl">
-        Investing as it should feel — soft, strong, and sovereign. A gentle rhythm guiding women toward financial clarity.
-      </p>
-      <form onSubmit={handleSubmit} className="mt-8 w-full max-w-sm">
+  const handleSubmit = () => {
+    // Add your logic here to save the email + answers
+    console.log("Email:", email);
+    console.log("Answers:", answers);
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="p-6">
+        <h1 className="text-2xl font-bold mb-4">You're on the waitlist!</h1>
+        <p>We'll reach out with your personalized Clara Compass soon.</p>
+      </div>
+    );
+  }
+
+  if (step >= questions.length) {
+    return (
+      <div className="p-6 max-w-xl mx-auto">
+        <h1 className="text-xl font-semibold mb-4">Enter your email to see your Clara Compass:</h1>
         <input
           type="email"
-          placeholder="Your email address"
-          required
-          className="w-full px-4 py-2 mb-4 border rounded-full"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="you@example.com"
+          className="w-full border rounded px-4 py-2 mb-4"
         />
         <button
-          type="submit"
-          className="bg-clay text-white px-6 py-3 rounded-full hover:opacity-90 transition w-full"
+          onClick={handleSubmit}
+          className="w-full bg-black text-white py-2 px-4 rounded hover:opacity-90"
         >
-          Join the Waitlist
+          Reveal My Compass & Join the Waitlist
         </button>
-      </form>
-      <div className="mt-6 text-sm text-gray-500">
-        Or follow our journey:
-        <br />
-        <iframe
-          src="https://claracompass.substack.com/embed"
-          width="300"
-          height="100"
-          style={{ border: "1px solid #EEE", background: "white", marginTop: "10px" }}
-          frameBorder="0"
-          scrolling="no"
-        ></iframe>
       </div>
-    </motion.div>
+    );
+  }
+
+  const current = questions[step];
+
+  return (
+    <div className="p-6 max-w-xl mx-auto">
+      <h1 className="text-xl font-semibold mb-4">{current.question}</h1>
+      <div className="space-y-2">
+        {current.options.map((option, index) => (
+          <button
+            key={index}
+            onClick={() => handleAnswer(option)}
+            className="block w-full text-left border px-4 py-2 rounded hover:bg-gray-100"
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }
