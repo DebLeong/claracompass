@@ -17,7 +17,6 @@ export default function HeroSection() {
       <p className="text-lg max-w-xl">
         Investing as it should feel — soft, strong, and sovereign. A gentle rhythm guiding women toward financial clarity.
       </p>
-
       <form onSubmit={handleSubmit} className="mt-8 w-full max-w-sm">
         <input
           type="email"
@@ -32,7 +31,6 @@ export default function HeroSection() {
           Join the Waitlist
         </button>
       </form>
-
       <div className="mt-6 text-sm text-gray-500">
         Or follow our journey:
         <br />
