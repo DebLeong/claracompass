@@ -22,7 +22,7 @@ function App() {
       case "Story":
         return <Story />;
       default:
-        return <HeroSection />; // ✅ This now includes your quiz
+        return <HeroSection />; // ✅ Updated HeroSection includes the quiz
     }
   };
 
