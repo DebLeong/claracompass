@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Signals() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-blush text-white p-8">
